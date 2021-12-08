@@ -1,0 +1,65 @@
+openapi: 3.0.0
+info:
+  version: '0.0.1'
+  title: 'CommandProtocol'
+servers:
+  - url: 'localhost:8080'
+paths:
+    /alive:
+        get:
+            operationId: checkAlive
+            security: []
+            responses:
+                '200':
+                    description: Alive
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                pattern: "^salut$"
+
+    /auth/login:
+        post:
+            operationId: login
+            security: []
+            requestBody:
+                description: The user form to login
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#components/schemas/LoginForm'
+            responses:
+                '200':
+                    description: OK
+                    content: 
+                        application/jwt:
+                            schema:
+                                type: string
+                '401':
+                    $ref: '#components/responses/Unauthorized'
+
+components:
+    schemas:
+        LoginForm:
+            type: object
+            properties:
+                username:
+                    type: string
+                password:
+                    type: string
+                    format: password
+            required:
+                - username
+                - passsword
+    responses:
+        Unauthorized:
+            description: Access token is missing or invalid
+    securitySchemes:
+        bearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+        
+security:
+  - bearerAuth: []
