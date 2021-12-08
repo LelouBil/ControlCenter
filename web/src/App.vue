@@ -1,16 +1,17 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <form method="post" action="">
+    <label for="username">Username :</label>
+    <input name="username" id="username" type="text"/>
+    <label for="password">Password :</label>
+    <input name="password" id="password"  type="password"/>
+  </form>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  name: 'App'
 }
 </script>
 
