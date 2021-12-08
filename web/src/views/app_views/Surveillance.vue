@@ -1,5 +1,5 @@
 <template>
-<div>SUrv</div>
+  <div>SUrv</div>
 </template>
 
 <script>

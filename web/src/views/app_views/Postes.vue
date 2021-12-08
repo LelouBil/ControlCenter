@@ -1,5 +1,5 @@
 <template>
-<div>Postestas</div>
+  <div>Postestas</div>
 </template>
 
 <script>

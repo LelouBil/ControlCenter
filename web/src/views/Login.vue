@@ -1,26 +1,39 @@
 <template>
   <div id="main">
     <img alt="logo" src="@/assets/logo.png">
-    <form method="post" action="">
+    <form v-on:submit.prevent="login">
       <h2 class="form-label">Page de connexion</h2>
       <div class="form-floating">
-        <input name="username" id="username" type="text" class="form-control" placeholder=" " autocomplete="true"/>
+        <input id="username" v-model="username" autocomplete="true" class="form-control" placeholder=" " type="text"
+               required/>
         <label for="username">Username</label>
       </div>
       <div class="form-floating">
-        <input name="password" id="password" type="password" class="form-control" placeholder=" " autocomplete="true"/>
+        <input id="password" v-model="password" autocomplete="true" class="form-control" placeholder=" " type="password"
+               required/>
         <label for="password">Password</label>
       </div>
-      <button type="submit" class="btn btn-primary btn-lg">Connexion</button>
+      <button class="btn btn-primary btn-lg" type="submit">Connexion</button>
     </form>
   </div>
 </template>
 
 <script>
 
-// Pourquoi ?
 export default {
-  name: 'Login'
+  name: 'Login',
+  data() {
+    return {
+      username: "",
+      password: ""
+    }
+  },
+  methods: {
+    login() {
+      this.$store.dispatch("login", {username: this.username, password: this.password});
+      this.$router.push("/app");
+    }
+  }
 }
 
 </script>

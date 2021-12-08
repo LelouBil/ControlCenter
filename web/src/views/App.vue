@@ -1,24 +1,43 @@
 <template>
   <div class="main">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <img class="float-start ms-3" alt="logo" src="@/assets/logo.png">
+    <header class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <img alt="logo" class="float-start ms-3" src="@/assets/logo.png">
       <h1 class="d-flex float-start">Control Center</h1>
 
-      <div class="navbar-collapse ms-5" id="navbarColor01">
-        <router-link class="navbar-brand" to="@/app_views/postes">Postes</router-link>
-        <router-link class="navbar-brand" to="script">Script</router-link>
-        <router-link class="navbar-brand" to="surveillance">Surveillance</router-link>
+      <div id="navbarColor01" class="navbar-collapse ms-5">
+        <router-link append class="navbar-brand" to="postes">Postes</router-link>
+        <router-link append class="navbar-brand" to="script">Script</router-link>
+        <router-link append class="navbar-brand" to="surveillance">Surveillance</router-link>
       </div>
-    </nav>
-    <router-view/>
+      <div>
+        <label>Bonjour, {{ user.name }}</label><br/>
+        <button class="btn btn-secondary" type="button" v-on:click="logout">Déconnexion</button>
+      </div>
+    </header>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+// import {mapState} from "vuex";
 
-// Pourquoi ?
 export default {
-  name: 'App'
+  name: 'App',
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.push("/");
+    }
+  },
+  computed: {
+    // ...mapState("store", [
+    //   "user"
+    // ]),
+    user() {
+      return this.$store.state.UserModule.user;
+    }
+  },
+
 }
 
 </script>
