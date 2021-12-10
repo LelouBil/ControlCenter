@@ -4,7 +4,7 @@ import router from './router'
 
 import Main from './Main.vue'
 import store from './store'
-import {ApiClient, DefaultApi} from 'control_center'
+import {ApiClient, DefaultApi} from 'control_center_api'
 
 const api_plugin = {
     install(app) {

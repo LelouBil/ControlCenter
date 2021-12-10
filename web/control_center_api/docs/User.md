@@ -1,4 +1,4 @@
-# ControlCenter.User
+# ControlCenterApi.User
 
 ## Properties
 

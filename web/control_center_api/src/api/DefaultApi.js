@@ -35,20 +35,12 @@ export default class DefaultApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the healthCheck operation.
-     * @callback module:api/DefaultApi~healthCheckCallback
-     * @param {String} error Error message, if any.
-     * @param {String} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Verifie si l'application est active
-     * @param {module:api/DefaultApi~healthCheckCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link String}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    healthCheck(callback) {
+    healthCheckWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -67,24 +59,27 @@ export default class DefaultApi {
       return this.apiClient.callApi(
         '//alive', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listPostes operation.
-     * @callback module:api/DefaultApi~listPostesCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Poste>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Verifie si l'application est active
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
+    healthCheck() {
+      return this.healthCheckWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Liste les postes trouvés
-     * @param {module:api/DefaultApi~listPostesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Poste>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Poste>} and HTTP response
      */
-    listPostes(callback) {
+    listPostesWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -103,25 +98,28 @@ export default class DefaultApi {
       return this.apiClient.callApi(
         '/postes/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the logIn operation.
-     * @callback module:api/DefaultApi~logInCallback
-     * @param {String} error Error message, if any.
-     * @param {String} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Liste les postes trouvés
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Poste>}
      */
+    listPostes() {
+      return this.listPostesWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Connexion au serveur en utilisant un login/mot de passe
      * @param {module:model/User} user 
-     * @param {module:api/DefaultApi~logInCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link String}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    logIn(user, callback) {
+    logInWithHttpInfo(user) {
       let postBody = user;
       // verify the required parameter 'user' is set
       if (user === undefined || user === null) {
@@ -144,8 +142,20 @@ export default class DefaultApi {
       return this.apiClient.callApi(
         '/auth/login', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Connexion au serveur en utilisant un login/mot de passe
+     * @param {module:model/User} user 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    logIn(user) {
+      return this.logInWithHttpInfo(user)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

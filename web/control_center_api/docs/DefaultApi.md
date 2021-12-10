@@ -1,4 +1,4 @@
-# ControlCenter.DefaultApi
+# ControlCenterApi.DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -21,16 +21,15 @@ Verifie si l&#39;application est active
 ### Example
 
 ```javascript
-import ControlCenter from 'control_center';
+import ControlCenterApi from 'control_center_api';
 
-let apiInstance = new ControlCenter.DefaultApi();
-apiInstance.healthCheck((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+let apiInstance = new ControlCenterApi.DefaultApi();
+apiInstance.healthCheck().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -62,16 +61,15 @@ Liste les postes trouvés
 ### Example
 
 ```javascript
-import ControlCenter from 'control_center';
+import ControlCenterApi from 'control_center_api';
 
-let apiInstance = new ControlCenter.DefaultApi();
-apiInstance.listPostes((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+let apiInstance = new ControlCenterApi.DefaultApi();
+apiInstance.listPostes().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -103,17 +101,16 @@ Connexion au serveur en utilisant un login/mot de passe
 ### Example
 
 ```javascript
-import ControlCenter from 'control_center';
+import ControlCenterApi from 'control_center_api';
 
-let apiInstance = new ControlCenter.DefaultApi();
-let user = new ControlCenter.User(); // User | 
-apiInstance.logIn(user, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+let apiInstance = new ControlCenterApi.DefaultApi();
+let user = new ControlCenterApi.User(); // User | 
+apiInstance.logIn(user).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
