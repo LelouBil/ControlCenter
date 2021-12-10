@@ -1,17 +1,19 @@
 mod data;
 
-use actix_web::{web, post, Result};
+use okapi::openapi3::OpenApi;
+use rocket::Route;
+use rocket::serde::json::Json;
+use rocket_okapi::{openapi, openapi_get_routes, openapi_get_routes_spec};
 
 pub use data::*;
 
-pub fn config(cfg: &mut web::ServiceConfig) {
-    cfg.service(
-        web::scope("/auth")
-        .service(log_in)
-    );
+pub fn routes() -> (Vec<Route>, OpenApi) {
+    openapi_get_routes_spec![log_in]
 }
 
-#[post("/login")]
-async fn log_in(login_form: web::Json<User>) -> Result<String>{
-    Ok(format!("essai de login avec {} et {}",login_form.name,login_form.password))
+#[openapi]
+/// Connexion au serveur en utilisant un login/mot de passe
+#[post("/login", data = "<login_form>", format = "json")]
+pub async fn log_in(login_form: Json<User>) -> String {
+    format!("essai de login avec {} et {}", login_form.name, login_form.password)
 }

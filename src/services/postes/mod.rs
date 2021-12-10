@@ -1,20 +1,20 @@
+use okapi::openapi3::OpenApi;
+use rocket::Route;
+use rocket::serde::json::Json;
+use rocket_okapi::{openapi, openapi_get_routes, openapi_get_routes_spec};
 mod data;
 
-use actix_web::{web, get, Responder};
-use actix_web::web::Json;
+use data::Poste;
 
 
-pub use data::*;
 
-pub fn config(cfg: &mut web::ServiceConfig) {
-    cfg.service(
-        web::scope("/postes")
-            .service(list_postes)
-    );
+pub fn routes() -> (Vec<Route>, OpenApi){
+    openapi_get_routes_spec![list_postes]
 }
 
-
-#[get("")]
+/// Liste les postes trouvés
+#[openapi]
+#[get("/")]
 async fn list_postes() -> Json<Vec<Poste>>{
     let mut random_postes: Vec<Poste> = Vec::new();
     

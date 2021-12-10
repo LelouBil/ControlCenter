@@ -1,23 +1,37 @@
 mod services;
 
-use actix_web::{App, middleware::Logger,middleware::NormalizePath, HttpServer};
-use actix_web::middleware::normalize::TrailingSlash;
+#[macro_use]
+extern crate rocket;
 
+use rocket_okapi::{mount_endpoints_and_merged_docs, openapi_get_routes};
+use rocket_okapi::rapidoc::{GeneralConfig, make_rapidoc, RapiDocConfig};
+use rocket_okapi::settings::{OpenApiSettings, UrlObject};
 
-#[actix_web::main]
-async fn main() -> std::io::Result<()> {
-    env_logger::init_from_env(env_logger::Env::new().default_filter_or("info"));
+#[rocket::main]
+async fn main() {
+    let mut rocket = rocket::build();
 
-    HttpServer::new(|| {
-        App::new()
-            .wrap(Logger::default())
-            .wrap(NormalizePath::new(TrailingSlash::Trim))
-            .configure(services::health_check::config)
-            .configure(services::authentication::config)
-            .configure(services::postes::config)
+    {
+        let settings = OpenApiSettings::default();
+        mount_endpoints_and_merged_docs! {
+            rocket,
+            "/",
+            settings,
+            "/auth" => services::authentication::routes(),
+            "/" => services::health_check::routes(),
+            "/postes" => services::postes::routes(),
+        }
+        ;
+    }
 
-    })
-        .bind("127.0.0.1:8080")?
-        .run()
-        .await
+    rocket
+        .mount("/ui/", make_rapidoc(&RapiDocConfig {
+            general: GeneralConfig {
+                spec_urls: vec![UrlObject::new("Spec file", "/openapi.json")],
+                ..Default::default()
+            },
+            ..Default::default()
+        }))
+        .launch()
+        .await;
 }
