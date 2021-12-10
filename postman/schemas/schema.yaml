@@ -63,7 +63,7 @@ components:
                     format: password
             required:
                 - username
-                - passsword
+                - password
         Poste:
             type: object
             properties:
@@ -77,6 +77,12 @@ components:
                     type: string
                 ip:
                     type: string
+            required:
+                - is_on
+                - is_compromised
+                - os
+                - hostname
+                - ip
     responses:
         Unauthorized:
             description: Access token is missing or invalid
