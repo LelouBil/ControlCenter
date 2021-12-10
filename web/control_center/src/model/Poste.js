@@ -20,34 +20,6 @@ import ApiClient from '../ApiClient';
  */
 class Poste {
     /**
-     * @member {Boolean} is_on
-     * @type {Boolean}
-     */
-    is_on;
-    /**
-     * @member {Boolean} is_compromised
-     * @type {Boolean}
-     */
-    is_compromised;
-    /**
-     * @member {String} os
-     * @type {String}
-     */
-    os;
-    /**
-     * @member {String} hostname
-     * @type {String}
-     */
-    hostname;
-    /**
-     * @member {String} ip
-     * @type {String}
-     */
-    ip;
-
-    
-
-    /**
      * Constructs a new <code>Poste</code>.
      * @alias module:model/Poste
      * @param isOn {Boolean} 
@@ -103,7 +75,37 @@ class Poste {
         }
         return obj;
     }
+
+
 }
+
+/**
+ * @member {Boolean} is_on
+ */
+Poste.prototype['is_on'] = undefined;
+
+/**
+ * @member {Boolean} is_compromised
+ */
+Poste.prototype['is_compromised'] = undefined;
+
+/**
+ * @member {String} os
+ */
+Poste.prototype['os'] = undefined;
+
+/**
+ * @member {String} hostname
+ */
+Poste.prototype['hostname'] = undefined;
+
+/**
+ * @member {String} ip
+ */
+Poste.prototype['ip'] = undefined;
+
+
+
 
 
 

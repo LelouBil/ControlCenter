@@ -1,5 +1,5 @@
 <template>
-  <div id="main">
+  <div class="main">
     <img alt="logo" src="@/assets/logo.png">
     <form v-on:submit.prevent="login">
       <h2 class="form-label">Page de connexion</h2>
@@ -38,8 +38,8 @@ export default {
 
 </script>
 
-<style>
-#main {
+<style scoped>
+.main {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

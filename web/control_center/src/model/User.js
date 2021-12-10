@@ -20,19 +20,6 @@ import ApiClient from '../ApiClient';
  */
 class User {
     /**
-     * @member {String} name
-     * @type {String}
-     */
-    name;
-    /**
-     * @member {String} password
-     * @type {String}
-     */
-    password;
-
-    
-
-    /**
      * Constructs a new <code>User</code>.
      * @alias module:model/User
      * @param name {String} 
@@ -73,7 +60,22 @@ class User {
         }
         return obj;
     }
+
+
 }
+
+/**
+ * @member {String} name
+ */
+User.prototype['name'] = undefined;
+
+/**
+ * @member {String} password
+ */
+User.prototype['password'] = undefined;
+
+
+
 
 
 

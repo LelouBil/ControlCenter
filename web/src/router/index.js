@@ -4,7 +4,7 @@ import App from "@/views/App.vue";
 import Postes from "@/views/app_views/Postes.vue";
 import Script from "@/views/app_views/Script.vue";
 import Surveillance from "@/views/app_views/Surveillance.vue";
-import store from "@/store"
+import store from "@/store";
 
 const routes = [
     {
@@ -14,10 +14,13 @@ const routes = [
     },
     {
         path: '/app',
+        name: 'App',
         component: App,
         beforeEnter(to, from, next) {
             if (to.name !== "Login" && !store.getters.isLoggedIn) {
                 next({name: "Login"});
+            } else if (to.name === "App") {
+                next({name: "Postes"});
             } else {
                 next();
             }
@@ -25,14 +28,17 @@ const routes = [
         children: [
             {
                 path: "postes",
+                name: "Postes",
                 component: Postes
             },
             {
                 path: "script",
+                name: "Script",
                 component: Script
             },
             {
                 path: "surveillance",
+                name: "Surveillance",
                 component: Surveillance
             }
         ]
