@@ -101,7 +101,7 @@ Please follow the [installation](#installation) instruction and execute the foll
 var ControlCenterApi = require('control_center_api');
 
 
-var api = new ControlCenterApi.DefaultApi()
+var api = new ControlCenterApi.HealthApi()
 api.healthCheck().then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
@@ -117,9 +117,9 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ControlCenterApi.DefaultApi* | [**healthCheck**](docs/DefaultApi.md#healthCheck) | **GET** //alive | 
-*ControlCenterApi.DefaultApi* | [**listPostes**](docs/DefaultApi.md#listPostes) | **GET** /postes/ | 
-*ControlCenterApi.DefaultApi* | [**logIn**](docs/DefaultApi.md#logIn) | **POST** /auth/login | 
+*ControlCenterApi.HealthApi* | [**healthCheck**](docs/HealthApi.md#healthCheck) | **GET** //alive | 
+*ControlCenterApi.LoginApi* | [**logIn**](docs/LoginApi.md#logIn) | **POST** /auth/login | 
+*ControlCenterApi.PostesApi* | [**listPostes**](docs/PostesApi.md#listPostes) | **GET** /postes/ | 
 
 
 ## Documentation for Models

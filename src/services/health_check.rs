@@ -9,7 +9,7 @@ pub fn routes() -> (Vec<Route>, OpenApi){
 
 /// Verifie si l'application est active
 
-#[openapi]
+#[openapi(tag = "Health")]
 #[get("/alive")]
 async fn health_check() -> &'static str{
     "salut"

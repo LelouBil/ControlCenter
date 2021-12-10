@@ -8,7 +8,6 @@
         "generatorName": "javascript",
         "inputSpec": "http://localhost:8000/openapi.json",
         "output": "control_center_api",
-        "templateDir": "generator/templates",
         "glob": "*",
         "artifactId": "control_center_api",
         "additionalProperties": {

@@ -11,7 +11,7 @@ pub fn routes() -> (Vec<Route>, OpenApi) {
     openapi_get_routes_spec![log_in]
 }
 
-#[openapi]
+#[openapi(tag = "Login")]
 /// Connexion au serveur en utilisant un login/mot de passe
 #[post("/login", data = "<login_form>", format = "json")]
 pub async fn log_in(login_form: Json<User>) -> String {

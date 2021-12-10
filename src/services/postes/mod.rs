@@ -1,7 +1,9 @@
 use okapi::openapi3::OpenApi;
+use rocket::http::Status;
+use rocket::response::status::NoContent;
 use rocket::Route;
 use rocket::serde::json::Json;
-use rocket_okapi::{openapi, openapi_get_routes, openapi_get_routes_spec};
+use rocket_okapi::{openapi, openapi_get_routes, openapi_get_routes_spec, };
 mod data;
 
 use data::Poste;
@@ -13,7 +15,7 @@ pub fn routes() -> (Vec<Route>, OpenApi){
 }
 
 /// Liste les postes trouvés
-#[openapi]
+#[openapi(tag = "Postes")]
 #[get("/")]
 async fn list_postes() -> Json<Vec<Poste>>{
     let mut random_postes: Vec<Poste> = Vec::new();

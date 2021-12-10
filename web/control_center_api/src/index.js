@@ -15,7 +15,9 @@
 import ApiClient from './ApiClient';
 import Poste from './model/Poste';
 import User from './model/User';
-import DefaultApi from './api/DefaultApi';
+import HealthApi from './api/HealthApi';
+import LoginApi from './api/LoginApi';
+import PostesApi from './api/PostesApi';
 
 
 /**
@@ -69,8 +71,20 @@ export {
     User,
 
     /**
-    * The DefaultApi service constructor.
-    * @property {module:api/DefaultApi}
+    * The HealthApi service constructor.
+    * @property {module:api/HealthApi}
     */
-    DefaultApi
+    HealthApi,
+
+    /**
+    * The LoginApi service constructor.
+    * @property {module:api/LoginApi}
+    */
+    LoginApi,
+
+    /**
+    * The PostesApi service constructor.
+    * @property {module:api/PostesApi}
+    */
+    PostesApi
 };
