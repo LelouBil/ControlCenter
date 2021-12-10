@@ -20,15 +20,15 @@
     factory(require('expect.js'), require(process.cwd()+'/src/index'));
   } else {
     // Browser globals (root is window)
-    factory(root.expect, root.ControlCenter);
+    factory(root.expect, root.ControlCenterApi);
   }
-}(this, function(expect, ControlCenter) {
+}(this, function(expect, ControlCenterApi) {
   'use strict';
 
   var instance;
 
   beforeEach(function() {
-    instance = new ControlCenter.User();
+    instance = new ControlCenterApi.User();
   });
 
   var getProperty = function(object, getter, property) {
@@ -50,19 +50,19 @@
   describe('User', function() {
     it('should create an instance of User', function() {
       // uncomment below and update the code to test User
-      //var instance = new ControlCenter.User();
-      //expect(instance).to.be.a(ControlCenter.User);
+      //var instance = new ControlCenterApi.User();
+      //expect(instance).to.be.a(ControlCenterApi.User);
     });
 
     it('should have the property name (base name: "name")', function() {
       // uncomment below and update the code to test the property name
-      //var instance = new ControlCenter.User();
+      //var instance = new ControlCenterApi.User();
       //expect(instance).to.be();
     });
 
     it('should have the property password (base name: "password")', function() {
       // uncomment below and update the code to test the property password
-      //var instance = new ControlCenter.User();
+      //var instance = new ControlCenterApi.User();
       //expect(instance).to.be();
     });
 

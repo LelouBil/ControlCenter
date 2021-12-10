@@ -6,11 +6,10 @@
     "serve": "cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve",
     "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build",
     "lint": "cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service lint",
-    "generate-api": "openapi-generator-cli generate && yarn --cwd control_center_api install"
+    "generate-api": "cross-env PWD=generator openapi-generator-cli generate && yarn --cwd control_center_api install && yarn install"
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "graphql": "^15.0.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0",

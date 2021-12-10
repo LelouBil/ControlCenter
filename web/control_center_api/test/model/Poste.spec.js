@@ -20,15 +20,15 @@
     factory(require('expect.js'), require(process.cwd()+'/src/index'));
   } else {
     // Browser globals (root is window)
-    factory(root.expect, root.ControlCenter);
+    factory(root.expect, root.ControlCenterApi);
   }
-}(this, function(expect, ControlCenter) {
+}(this, function(expect, ControlCenterApi) {
   'use strict';
 
   var instance;
 
   beforeEach(function() {
-    instance = new ControlCenter.Poste();
+    instance = new ControlCenterApi.Poste();
   });
 
   var getProperty = function(object, getter, property) {
@@ -50,37 +50,37 @@
   describe('Poste', function() {
     it('should create an instance of Poste', function() {
       // uncomment below and update the code to test Poste
-      //var instance = new ControlCenter.Poste();
-      //expect(instance).to.be.a(ControlCenter.Poste);
+      //var instance = new ControlCenterApi.Poste();
+      //expect(instance).to.be.a(ControlCenterApi.Poste);
     });
 
     it('should have the property isOn (base name: "is_on")', function() {
       // uncomment below and update the code to test the property isOn
-      //var instance = new ControlCenter.Poste();
+      //var instance = new ControlCenterApi.Poste();
       //expect(instance).to.be();
     });
 
     it('should have the property isCompromised (base name: "is_compromised")', function() {
       // uncomment below and update the code to test the property isCompromised
-      //var instance = new ControlCenter.Poste();
+      //var instance = new ControlCenterApi.Poste();
       //expect(instance).to.be();
     });
 
     it('should have the property os (base name: "os")', function() {
       // uncomment below and update the code to test the property os
-      //var instance = new ControlCenter.Poste();
+      //var instance = new ControlCenterApi.Poste();
       //expect(instance).to.be();
     });
 
     it('should have the property hostname (base name: "hostname")', function() {
       // uncomment below and update the code to test the property hostname
-      //var instance = new ControlCenter.Poste();
+      //var instance = new ControlCenterApi.Poste();
       //expect(instance).to.be();
     });
 
     it('should have the property ip (base name: "ip")', function() {
       // uncomment below and update the code to test the property ip
-      //var instance = new ControlCenter.Poste();
+      //var instance = new ControlCenterApi.Poste();
       //expect(instance).to.be();
     });
 

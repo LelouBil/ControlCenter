@@ -20,15 +20,15 @@
     factory(require('expect.js'), require(process.cwd()+'/src/index'));
   } else {
     // Browser globals (root is window)
-    factory(root.expect, root.ControlCenter);
+    factory(root.expect, root.ControlCenterApi);
   }
-}(this, function(expect, ControlCenter) {
+}(this, function(expect, ControlCenterApi) {
   'use strict';
 
   var instance;
 
   beforeEach(function() {
-    instance = new ControlCenter.DefaultApi();
+    instance = new ControlCenterApi.DefaultApi();
   });
 
   var getProperty = function(object, getter, property) {
