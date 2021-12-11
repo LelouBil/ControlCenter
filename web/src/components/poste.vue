@@ -21,7 +21,7 @@ export default {
   props: ["poste"],
   methods: {
     posteCtrl() {
-      this.$router.push("/app/postes/" + this.poste.ip);
+      this.$router.push( this.poste.ip);
     }
   }
 }

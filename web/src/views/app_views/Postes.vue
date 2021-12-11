@@ -2,23 +2,23 @@
   <div class="filters">
     <div class="filter">
       <label>On :</label>
-      <select class="form-select" v-model="is_on">
-        <option>All</option>
-        <option>Yes</option>
-        <option>No</option>
+      <select class="form-select btn-info" v-model="filter.is_on">
+        <option v-bind:value=null>All</option>
+        <option v-bind:value=true>Yes</option>
+        <option v-bind:value=false>No</option>
       </select>
     </div>
     <div class="filter">
       <label>Compromised :</label>
-      <select class="form-select" v-model="is_compromised">
-        <option>All</option>
-        <option>Yes</option>
-        <option>No</option>
+      <select class="form-select btn-info" v-model="filter.is_compromised">
+        <option v-bind:value=null>All</option>
+        <option v-bind:value=true>Yes</option>
+        <option v-bind:value=false>No</option>
       </select>
     </div>
     <div class="filter">
       <label>OS :</label>
-      <select class="form-select" v-model="os" id="os">
+      <select class="form-select btn-info" v-model="filter.os" id="os">
         <option>All</option>
         <option>CentOS</option>
         <option>Windows</option>
@@ -27,9 +27,12 @@
     </div>
     <div class="filter">
       <label for="range">Range :</label>
-      <input class="form-control" v-model="range" type="text" id="range" placeholder="150-215">
+      <div class="range">
+        <input class="form-control btn-info" v-model.lazy="filter.range[0]" type="number" id="range" placeholder="From">
+        <input class="form-control btn-info" v-model.lazy="filter.range[1]" type="number" id="range2" placeholder="To">
+      </div>
     </div>
-    <button class="btn btn-success" v-on:click="load({is_on, is_compromised, os, range})">Refresh</button>
+    <button class="btn btn-success" v-on:click="load(filter)">Refresh</button>
   </div>
   <h1>Postes</h1>
   <div class="postes">
@@ -45,25 +48,21 @@ export default {
   data() {
     return {
       postes: [],
-      is_on: "All",
-      is_compromised: "All",
-      os: "All",
-      range: "",
+      filter: {
+        is_on: null,
+        is_compromised: null,
+        os: "All",
+        range: [],
+      }
     }
   },
   methods: {
-    async load(payload) {
-      this.postes = await this.$posteApi.listPostes(payload);
+    async load(filter) {
+      this.postes = await this.$posteApi.listPostes(filter);
     }
   },
   mounted() {
-    let payload = {
-      is_on: "All",
-      is_compromised: "All",
-      os: "All",
-      range: "",
-    }
-    this.load(payload);
+    this.load(this.filter);
   },
   components: {
     poste,
@@ -73,14 +72,13 @@ export default {
 
 <style scoped>
 h1 {
-  margin: 1rem 1rem 2rem;
+  margin: 1rem 1rem .5rem;
 }
 
 .postes {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 0 2rem;
 }
 
 .filters {
@@ -97,6 +95,33 @@ h1 {
 }
 
 button {
-  margin: 2.4rem 0 auto 1rem;
+  margin: 2.5rem 0 auto .5rem;
+}
+
+.range {
+  display: flex;
+}
+
+.range input {
+  width: 5rem;
+}
+
+.range input:first-child {
+  margin-right: .5rem;
+}
+
+.range input::placeholder {
+  color: white;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 </style>

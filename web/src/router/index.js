@@ -43,7 +43,7 @@ const routes = [
                 component: Surveillance
             },
             {
-                path: "/app/postes/:ip",
+                path: ":ip",
                 name: "PosteCtrl",
                 component: PosteCtrl
             }

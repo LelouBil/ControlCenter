@@ -12,11 +12,9 @@
       <div class="float-end m-auto">
         <label>Bonjour, <strong class="name">{{ user.name }}</strong></label><br/>
         <button class="btn btn-secondary" type="button" v-on:click="logout">Déconnexion</button>
-
-        <div class="form-check m-auto">
-          <label class="form-check-label" for="spread">Se répandre</label>
-          <input class="form-check-input" type="checkbox" id="spread" v-model="spreading" v-on:change="spread(spreading)">
-        </div>
+        <br>
+        <button v-if="spreading" class="btn btn-success" v-on:click="spread">Propagation</button>
+        <button v-else class="btn btn-outline-success" v-on:click="spread">Propagation</button>
       </div>
     </header>
 
@@ -38,8 +36,8 @@ export default {
       this.$store.dispatch("logout");
       this.$router.push("/");
     },
-    spread(bool) {
-      alert("Propagation " + bool);
+    spread() {
+      this.spreading = !this.spreading;
     }
   },
   computed: {
@@ -76,15 +74,13 @@ header {
 }
 
 button {
-  margin-top: 1rem;
-  margin-bottom: .5rem;
+  margin-top: .5rem;
   width: 15rem;
   height: 4rem;
   border-radius: 10px;
 }
 
-.form-check-input:checked {
-  background-color: var(--bs-green);
-  border-color: var(--bs-green);
+.btn-outline-success:hover {
+  background-color: transparent !important;
 }
 </style>

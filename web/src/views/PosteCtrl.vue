@@ -7,8 +7,8 @@
         <div class="console">Console</div>
       </div>
       <div>
-      <input id="souris" type="checkbox" v-model="souris">
-      <label class="ms-1 mt-3" for="souris">Souris écran</label>
+        <input id="souris" type="checkbox" v-model="souris">
+        <label class="ms-1 mt-3" for="souris">Souris écran</label>
       </div>
     </div>
     <button type="button" class="btn btn-danger" v-on:click="abandon">Abandonner le poste</button>
@@ -26,10 +26,8 @@ export default {
   methods: {
     abandon() {
       if (confirm("Voulez-vous vraiment abandonner ce poste ?")) {
-        if (confirm("En êtes vous vraiment certain ?")) {
-          if (confirm("Est-ce votre dernier mot ?")){
-            alert('TODO lol')
-          }
+        if (confirm("Est-ce votre dernier mot ?")) {
+          alert('TODO lol')
         }
       }
     }
