@@ -21,21 +21,37 @@ async fn list_postes() -> Json<Vec<Poste>>{
     let mut random_postes: Vec<Poste> = Vec::new();
     
     let a = Poste{
-        ip: "192.168.0.243".to_string(),
-        os: "CentOS".to_string(), 
-        hostname: "dinfo243".to_string(),
-        is_compromised: true, 
+        ip: "192.168.0.142".to_string(),
+        os: "Debian".to_string(),
+        hostname: "dinfo142".to_string(),
+        is_compromised: false,
         is_on: true
     };
     let b = Poste{
-        ip: "192.168.0.123".to_string(),
+        ip: "192.168.0.198".to_string(),
+        os: "Windows".to_string(),
+        hostname: "dinfo198".to_string(),
+        is_compromised: false,
+        is_on: false
+    };
+    let c = Poste{
+        ip: "192.168.0.216".to_string(),
+        os: "Windows".to_string(),
+        hostname: "dinfo216".to_string(),
+        is_compromised: false,
+        is_on: true
+    };
+    let d = Poste{
+        ip: "192.168.0.234".to_string(),
         os: "CentOS".to_string(),
-        hostname: "dinfo123".to_string(),
+        hostname: "dinfo234".to_string(),
         is_compromised: true,
         is_on: true
     };
     random_postes.push(a);
     random_postes.push(b);
-    
+    random_postes.push(c);
+    random_postes.push(d);
+
     Json(random_postes)
 }

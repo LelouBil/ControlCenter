@@ -9,9 +9,14 @@
         <router-link class="navbar-brand" :to="{name: 'Script'}">Script</router-link>
         <router-link class="navbar-brand" :to="{name: 'Surveillance'}">Surveillance</router-link>
       </div>
-      <div class="float-end">
+      <div class="float-end m-auto">
         <label>Bonjour, <strong class="name">{{ user.name }}</strong></label><br/>
         <button class="btn btn-secondary" type="button" v-on:click="logout">Déconnexion</button>
+
+        <div class="form-check m-auto">
+          <label class="form-check-label" for="spread">Se répandre</label>
+          <input class="form-check-input" type="checkbox" id="spread" v-model="spreading" v-on:change="spread(spreading)">
+        </div>
       </div>
     </header>
 
@@ -23,10 +28,18 @@
 <script>
 export default {
   name: 'App',
+  data() {
+    return {
+      spreading: true
+    }
+  },
   methods: {
     logout() {
       this.$store.dispatch("logout");
       this.$router.push("/");
+    },
+    spread(bool) {
+      alert("Propagation " + bool);
     }
   },
   computed: {
@@ -38,7 +51,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 .main {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -64,7 +77,14 @@ header {
 
 button {
   margin-top: 1rem;
+  margin-bottom: .5rem;
   width: 15rem;
   height: 4rem;
+  border-radius: 10px;
+}
+
+.form-check-input:checked {
+  background-color: var(--bs-green);
+  border-color: var(--bs-green);
 }
 </style>

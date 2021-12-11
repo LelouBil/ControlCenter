@@ -1,10 +1,11 @@
 import {createRouter, createWebHistory} from 'vue-router'
-import Login from '@/views/Login.vue'
-import App from "@/views/App.vue";
-import Postes from "@/views/app_views/Postes.vue";
-import Script from "@/views/app_views/Script.vue";
-import Surveillance from "@/views/app_views/Surveillance.vue";
-import store from "@/store";
+import Login from '../views/Login.vue'
+import App from "../views/App.vue";
+import Postes from "../views/app_views/Postes";
+import Script from "../views/app_views/Script.vue";
+import Surveillance from "../views/app_views/Surveillance.vue";
+import store from "../store";
+import PosteCtrl from "../views/PosteCtrl";
 
 const routes = [
     {
@@ -40,8 +41,13 @@ const routes = [
                 path: "surveillance",
                 name: "Surveillance",
                 component: Surveillance
+            },
+            {
+                path: "/app/postes/:ip",
+                name: "PosteCtrl",
+                component: PosteCtrl
             }
-        ]
+        ],
     }
 ]
 
