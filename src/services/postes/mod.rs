@@ -7,7 +7,7 @@ use rocket_okapi::{openapi, openapi_get_routes, openapi_get_routes_spec, };
 mod data;
 
 use data::Poste;
-
+use crate::services::authentication::{LoggedInUser, LoginForm};
 
 
 pub fn routes() -> (Vec<Route>, OpenApi){
@@ -17,7 +17,7 @@ pub fn routes() -> (Vec<Route>, OpenApi){
 /// Liste les postes trouvés
 #[openapi(tag = "Postes")]
 #[get("/")]
-async fn list_postes() -> Json<Vec<Poste>>{
+async fn list_postes(_user : LoggedInUser) -> Json<Vec<Poste>>{
     let mut random_postes: Vec<Poste> = Vec::new();
     
     let a = Poste{
