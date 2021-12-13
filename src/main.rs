@@ -22,10 +22,10 @@ async fn main() {
         let settings = OpenApiSettings::default();
         mount_endpoints_and_merged_docs! {
             rocket,
-            "",
+            "/",
             settings,
             "/auth" => services::authentication::routes(),
-            "/" => services::health_check::routes(),
+            "" => services::health_check::routes(),
             "/postes" => services::postes::routes(),
         };
     }

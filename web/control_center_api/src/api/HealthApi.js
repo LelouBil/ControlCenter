@@ -55,7 +55,7 @@ export default class HealthApi {
       let accepts = ['text/plain'];
       let returnType = 'String';
       return this.apiClient.callApi(
-        '//alive', 'GET',
+        '/alive', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );

@@ -2,7 +2,7 @@
   <div class="filters">
     <div class="filter">
       <label>On :</label>
-      <select class="form-select btn-info" v-model="filter.is_on">
+      <select class="form-select" v-model="filter.is_on">
         <option v-bind:value=null>All</option>
         <option v-bind:value=true>Yes</option>
         <option v-bind:value=false>No</option>
@@ -10,7 +10,7 @@
     </div>
     <div class="filter">
       <label>Compromised :</label>
-      <select class="form-select btn-info" v-model="filter.is_compromised">
+      <select class="form-select" v-model="filter.is_compromised">
         <option v-bind:value=null>All</option>
         <option v-bind:value=true>Yes</option>
         <option v-bind:value=false>No</option>
@@ -18,7 +18,7 @@
     </div>
     <div class="filter">
       <label>OS :</label>
-      <select class="form-select btn-info" v-model="filter.os" id="os">
+      <select class="form-select" v-model="filter.os" id="os">
         <option>All</option>
         <option>CentOS</option>
         <option>Windows</option>
@@ -28,8 +28,8 @@
     <div class="filter">
       <label for="range">Range :</label>
       <div class="range">
-        <input class="form-control btn-info" v-model.lazy="filter.range[0]" type="number" id="range" placeholder="From">
-        <input class="form-control btn-info" v-model.lazy="filter.range[1]" type="number" id="range2" placeholder="To">
+        <input class="form-control" v-model.lazy="filter.range[0]" type="number" id="range" placeholder="From">
+        <input class="form-control" v-model.lazy="filter.range[1]" type="number" id="range2" placeholder="To">
       </div>
     </div>
     <button class="btn btn-success" v-on:click="load(filter)">Refresh</button>
@@ -87,7 +87,7 @@ h1 {
 
   margin: auto;
 
-  background-color: #1a2b3d;;
+  background-color: #1a2b3d;
 }
 
 .filter {
@@ -111,7 +111,7 @@ button {
 }
 
 .range input::placeholder {
-  color: white;
+  color: black;
 }
 
 input::-webkit-outer-spin-button,

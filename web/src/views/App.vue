@@ -10,7 +10,7 @@
         <router-link class="navbar-brand" :to="{name: 'Surveillance'}">Surveillance</router-link>
       </div>
       <div class="float-end m-auto">
-        <label>Bonjour, <strong class="name">{{ user.name }}</strong></label><br/>
+        <label>Bonjour, <strong class="name">{{ user }}</strong></label><br/>
         <button class="btn btn-secondary" type="button" v-on:click="logout">Déconnexion</button>
         <br>
         <button v-if="spreading" class="btn btn-success" v-on:click="spread">Propagation</button>

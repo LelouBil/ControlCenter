@@ -117,17 +117,21 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ControlCenterApi.HealthApi* | [**healthCheck**](docs/HealthApi.md#healthCheck) | **GET** //alive | 
+*ControlCenterApi.HealthApi* | [**healthCheck**](docs/HealthApi.md#healthCheck) | **GET** /alive | 
 *ControlCenterApi.LoginApi* | [**logIn**](docs/LoginApi.md#logIn) | **POST** /auth/login | 
 *ControlCenterApi.PostesApi* | [**listPostes**](docs/PostesApi.md#listPostes) | **GET** /postes/ | 
 
 
 ## Documentation for Models
 
+ - [ControlCenterApi.LoginForm](docs/LoginForm.md)
  - [ControlCenterApi.Poste](docs/Poste.md)
- - [ControlCenterApi.User](docs/User.md)
 
 
 ## Documentation for Authorization
 
-All endpoints do not require authorization.
+
+
+### JWT
+
+

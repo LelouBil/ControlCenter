@@ -4,9 +4,9 @@
 README.md
 docs/HealthApi.md
 docs/LoginApi.md
+docs/LoginForm.md
 docs/Poste.md
 docs/PostesApi.md
-docs/User.md
 git_push.sh
 mocha.opts
 package.json
@@ -15,5 +15,5 @@ src/api/HealthApi.js
 src/api/LoginApi.js
 src/api/PostesApi.js
 src/index.js
+src/model/LoginForm.js
 src/model/Poste.js
-src/model/User.js

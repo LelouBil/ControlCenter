@@ -1,14 +1,15 @@
 import {createApp} from 'vue'
 
 import router from './router'
-
 import Main from './Main.vue'
+
+ApiClient.instance.basePath = "http://localhost:8000";
+
 import store from './store'
 import {ApiClient, PostesApi} from 'control_center_api'
 
 const api_plugin = {
     install(app) {
-        ApiClient.instance.basePath = "http://localhost:8000";
         app.config.globalProperties.$posteApi = new PostesApi();
     }
 };

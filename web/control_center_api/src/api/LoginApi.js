@@ -13,7 +13,7 @@
 
 
 import ApiClient from "../ApiClient";
-import User from '../model/User';
+import LoginForm from '../model/LoginForm';
 
 /**
 * Login service.
@@ -37,14 +37,14 @@ export default class LoginApi {
 
     /**
      * Connexion au serveur en utilisant un login/mot de passe
-     * @param {module:model/User} user 
+     * @param {module:model/LoginForm} loginForm 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    logInWithHttpInfo(user) {
-      let postBody = user;
-      // verify the required parameter 'user' is set
-      if (user === undefined || user === null) {
-        throw new Error("Missing the required parameter 'user' when calling logIn");
+    logInWithHttpInfo(loginForm) {
+      let postBody = loginForm;
+      // verify the required parameter 'loginForm' is set
+      if (loginForm === undefined || loginForm === null) {
+        throw new Error("Missing the required parameter 'loginForm' when calling logIn");
       }
 
       let pathParams = {
@@ -69,11 +69,11 @@ export default class LoginApi {
 
     /**
      * Connexion au serveur en utilisant un login/mot de passe
-     * @param {module:model/User} user 
+     * @param {module:model/LoginForm} loginForm 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    logIn(user) {
-      return this.logInWithHttpInfo(user)
+    logIn(loginForm) {
+      return this.logInWithHttpInfo(loginForm)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

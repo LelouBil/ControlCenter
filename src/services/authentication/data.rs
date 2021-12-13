@@ -15,7 +15,7 @@ use crate::services::users::User;
 
 #[derive(Deserialize,JsonSchema)]
 pub struct LoginForm {
-    pub name: String,
+    pub username: String,
     pub password: String
 }
 

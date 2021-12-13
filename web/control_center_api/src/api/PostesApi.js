@@ -51,7 +51,7 @@ export default class PostesApi {
       let formParams = {
       };
 
-      let authNames = [];
+      let authNames = ['JWT'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = [Poste];

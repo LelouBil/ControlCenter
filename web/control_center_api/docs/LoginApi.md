@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## logIn
 
-> String logIn(user)
+> String logIn(loginForm)
 
 
 
@@ -22,8 +22,8 @@ Connexion au serveur en utilisant un login/mot de passe
 import ControlCenterApi from 'control_center_api';
 
 let apiInstance = new ControlCenterApi.LoginApi();
-let user = new ControlCenterApi.User(); // User | 
-apiInstance.logIn(user).then((data) => {
+let loginForm = new ControlCenterApi.LoginForm(); // LoginForm | 
+apiInstance.logIn(loginForm).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -36,7 +36,7 @@ apiInstance.logIn(user).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user** | [**User**](User.md)|  | 
+ **loginForm** | [**LoginForm**](LoginForm.md)|  | 
 
 ### Return type
 

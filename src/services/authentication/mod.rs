@@ -19,7 +19,7 @@ pub fn routes() -> (Vec<Route>, OpenApi) {
 /// Connexion au serveur en utilisant un login/mot de passe
 #[post("/login", data = "<login_form>", format = "json")]
 pub async fn log_in(login_form: Json<LoginForm>) -> Result<String,Status> {
-    let user  = User{username: login_form.name.clone(),password: login_form.password.clone()};
+    let user  = User{username: login_form.username.clone(),password: login_form.password.clone()};
 
     let result = LoggedInUser::create_jwt(user);
     match result { 

@@ -20,6 +20,7 @@ Liste les postes trouvés
 
 ```javascript
 import ControlCenterApi from 'control_center_api';
+let defaultClient = ControlCenterApi.ApiClient.instance;
 
 let apiInstance = new ControlCenterApi.PostesApi();
 apiInstance.listPostes().then((data) => {
@@ -40,7 +41,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[JWT](../README.md#JWT)
 
 ### HTTP request headers
 

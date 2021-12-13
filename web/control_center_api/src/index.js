@@ -13,8 +13,8 @@
 
 
 import ApiClient from './ApiClient';
+import LoginForm from './model/LoginForm';
 import Poste from './model/Poste';
-import User from './model/User';
 import HealthApi from './api/HealthApi';
 import LoginApi from './api/LoginApi';
 import PostesApi from './api/PostesApi';
@@ -59,16 +59,16 @@ export {
     ApiClient,
 
     /**
+     * The LoginForm model constructor.
+     * @property {module:model/LoginForm}
+     */
+    LoginForm,
+
+    /**
      * The Poste model constructor.
      * @property {module:model/Poste}
      */
     Poste,
-
-    /**
-     * The User model constructor.
-     * @property {module:model/User}
-     */
-    User,
 
     /**
     * The HealthApi service constructor.
