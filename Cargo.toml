@@ -16,6 +16,7 @@ schemars = "0.8.8"
 serde = "1"
 serde_json = "1"
 diesel = { version = "1.4.4", features = ["libsqlite3-sys"] }
+libsqlite3-sys = { version = ">=0.8.0, <0.24.0", optional = true, features = ["bundled"] }
 dotenv = "0.15.0"
 jsonwebtoken = "7"
 chrono = "0.4.19"
