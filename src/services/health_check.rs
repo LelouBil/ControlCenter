@@ -1,5 +1,5 @@
 use okapi::openapi3::OpenApi;
-use rocket::{Route, routes as rocket_routes};
+use rocket::{Route};
 use rocket_okapi::{openapi, openapi_get_routes_spec};
 
 

@@ -1,13 +1,12 @@
 use okapi::openapi3::OpenApi;
-use rocket::http::Status;
-use rocket::response::status::NoContent;
-use rocket::Route;
+use rocket::{Route, State};
 use rocket::serde::json::Json;
-use rocket_okapi::{openapi, openapi_get_routes, openapi_get_routes_spec, };
+use rocket_okapi::{openapi, openapi_get_routes_spec, };
 mod data;
 
 use data::Poste;
-use crate::services::authentication::{LoggedInUser, LoginForm};
+use crate::database::DatabaseConnection;
+use crate::services::authentication::LoggedInUser;
 
 
 pub fn routes() -> (Vec<Route>, OpenApi){

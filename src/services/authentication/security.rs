@@ -18,7 +18,6 @@ impl<'r> FromRequest<'r> for LoggedInUser {
         }
 
         let token = authh.unwrap().replace("Bearer ","");
-        println!("Token is {}",token);
 
         match LoggedInUser::from_jwt(token) {
             Some(user) => Outcome::Success(user),
@@ -28,7 +27,7 @@ impl<'r> FromRequest<'r> for LoggedInUser {
 }
 
 impl<'a> OpenApiFromRequest<'a> for LoggedInUser {
-    fn from_request_input(gen: &mut OpenApiGenerator, name: String, required: bool) -> rocket_okapi::Result<RequestHeaderInput> {
+    fn from_request_input(_gen: &mut OpenApiGenerator, _name: String, _required: bool) -> rocket_okapi::Result<RequestHeaderInput> {
         let scheme = SecurityScheme{
             description: Some("Cette action necesitte d'etre connécté".into()),
             data: SecuritySchemeData::Http{

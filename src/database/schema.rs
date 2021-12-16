@@ -1,5 +1,5 @@
 table! {
-    Users (username) {
+    users (username) {
         username -> Text,
         password -> Text,
     }

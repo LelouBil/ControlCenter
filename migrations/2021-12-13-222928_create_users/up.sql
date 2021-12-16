@@ -1,7 +1,7 @@
-create table Users
+create table users
 (
     username VARCHAR not null
-        constraint Users_pk
+        constraint users_pk
             primary key,
     password VARCHAR not null
 );

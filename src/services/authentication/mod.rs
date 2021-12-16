@@ -1,14 +1,17 @@
 mod data;
 mod security;
 
-use jsonwebtoken::{EncodingKey, Header};
+use diesel::{QueryDsl, RunQueryDsl};
+use diesel::result::Error;
 use okapi::openapi3::OpenApi;
 use rocket::http::Status;
 use rocket::Route;
 use rocket::serde::json::Json;
-use rocket_okapi::{openapi, openapi_get_routes, openapi_get_routes_spec};
+use rocket_okapi::{openapi, openapi_get_routes_spec};
 
 pub use data::*;
+use crate::database::DatabaseConnection;
+use crate::database::users::dsl::users;
 use crate::services::users::User;
 
 pub fn routes() -> (Vec<Route>, OpenApi) {
@@ -18,12 +21,17 @@ pub fn routes() -> (Vec<Route>, OpenApi) {
 #[openapi(tag = "Login")]
 /// Connexion au serveur en utilisant un login/mot de passe
 #[post("/login", data = "<login_form>", format = "json")]
-pub async fn log_in(login_form: Json<LoginForm>) -> Result<String,Status> {
-    let user  = User{username: login_form.username.clone(),password: login_form.password.clone()};
+pub async fn log_in(db: DatabaseConnection, login_form: Json<LoginForm>) -> Result<String,Status> {
+    let res : User = db.run(move |conn| {
+        match users.find(&login_form.username).first::<User>(conn) {
+            Ok(user) => 
+                if user.password == login_form.password { Ok(user) } 
+                else { Err(Status::Unauthorized) }
+            Err(error) => 
+                if error == Error::NotFound { Err(Status::Unauthorized) }
+                else { Err(Status::InternalServerError) }
+        }
+    }).await?;
 
-    let result = LoggedInUser::create_jwt(user);
-    match result { 
-        Some(token) => Ok(token),
-        None => Err(Status::InternalServerError)
-    }
+    LoggedInUser::create_jwt(res).ok_or(Status::InternalServerError)
 }

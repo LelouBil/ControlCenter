@@ -10,10 +10,11 @@ use rocket_okapi::request::{OpenApiFromRequest, RequestHeaderInput};
 use serde::{Deserialize,Serialize};
 use schemars::JsonSchema;
 use serde_json::json;
+use diesel::Insertable;
 
 use crate::services::users::User;
 
-#[derive(Deserialize,JsonSchema)]
+#[derive(Deserialize,JsonSchema,Insertable)]
 pub struct LoginForm {
     pub username: String,
     pub password: String
