@@ -23,6 +23,7 @@ fn mount_routes(mut rocket: Rocket<Build>) -> Rocket<Build> {
             "/auth" => services::authentication::routes(),
             "" => services::health_check::routes(),
             "/postes" => services::postes::routes(),
+            "/users" => services::users::routes()
         };
     rocket
 }

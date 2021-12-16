@@ -1,3 +1,4 @@
+#![feature(let_chains)]
 mod services;
 
 #[macro_use]
@@ -5,6 +6,7 @@ extern crate rocket;
 
 #[macro_use]
 extern crate diesel;
+
 
 mod web_config;
 mod database;

@@ -1,6 +1,7 @@
 mod data;
 mod security;
 
+use std::borrow::Borrow;
 use diesel::{QueryDsl, RunQueryDsl};
 use diesel::result::Error;
 use okapi::openapi3::OpenApi;
@@ -25,7 +26,7 @@ pub async fn log_in(db: DatabaseConnection, login_form: Json<LoginForm>) -> Resu
     let res : User = db.run(move |conn| {
         match users.find(&login_form.username).first::<User>(conn) {
             Ok(user) => 
-                if user.password == login_form.password { Ok(user) } 
+                if user.password.is_some() && user.password.as_ref().unwrap() == &login_form.password { Ok(user) } 
                 else { Err(Status::Unauthorized) }
             Err(error) => 
                 if error == Error::NotFound { Err(Status::Unauthorized) }

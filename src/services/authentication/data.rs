@@ -11,10 +11,10 @@ use serde::{Deserialize,Serialize};
 use schemars::JsonSchema;
 use serde_json::json;
 use diesel::Insertable;
-
+use crate::database::users;
 use crate::services::users::User;
 
-#[derive(Deserialize,JsonSchema,Insertable)]
+#[derive(Deserialize,JsonSchema)]
 pub struct LoginForm {
     pub username: String,
     pub password: String

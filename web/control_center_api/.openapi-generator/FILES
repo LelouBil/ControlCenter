@@ -7,6 +7,8 @@ docs/LoginApi.md
 docs/LoginForm.md
 docs/Poste.md
 docs/PostesApi.md
+docs/User.md
+docs/UsersApi.md
 git_push.sh
 mocha.opts
 package.json
@@ -14,6 +16,8 @@ src/ApiClient.js
 src/api/HealthApi.js
 src/api/LoginApi.js
 src/api/PostesApi.js
+src/api/UsersApi.js
 src/index.js
 src/model/LoginForm.js
 src/model/Poste.js
+src/model/User.js
