@@ -13,9 +13,7 @@ mod database;
 #[launch]
 fn ignition() -> _ {
     dotenv::dotenv().expect("Failed to load environment");
-    
     println!("Starting rocket launch");
-    
     let rocket = rocket::build()
         .configure(database::get_database_config())
         .attach(database::DatabaseConnection::fairing());
