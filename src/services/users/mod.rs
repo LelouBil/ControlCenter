@@ -1,10 +1,8 @@
 mod data;
 
 use diesel::{insert_into, QueryDsl, RunQueryDsl};
-use diesel::result::{DatabaseErrorKind, Error};
 use okapi::openapi3::OpenApi;
 use rocket::http::Status;
-use rocket::http::uri::{Origin, Uri};
 use rocket::response::status;
 use rocket::Route;
 use rocket::serde::json::Json;
@@ -12,7 +10,7 @@ use rocket_okapi::{openapi_get_routes_spec,openapi};
 pub use data::*;
 use crate::database::DatabaseConnection;
 use crate::database::users::dsl::users;
-use crate::database::users::username;
+use crate::web_config::DieselErrorToRocketStatus;
 use crate::services::authentication::LoginForm;
 
 
@@ -32,11 +30,7 @@ pub async fn create_user(db: DatabaseConnection, login_form: Json<LoginForm>) ->
                     uri!("/users",get_user(user_name = new_user.username.clone())).to_string())
                     .body(Json(new_user))
             })
-            .map_err(|error| {
-                if let diesel::result::Error::DatabaseError(DatabaseErrorKind::UniqueViolation,_) = error 
-                { Status::Conflict } 
-                else { Status::InternalServerError } //todo error catcher to just propagate and REMOVE Status as returns
-            })
+            .map_err_to_status()
     }).await
 }
 /// Liste les utilisateurs
@@ -44,8 +38,7 @@ pub async fn create_user(db: DatabaseConnection, login_form: Json<LoginForm>) ->
 #[get("/")]
 pub async fn list_users(db: DatabaseConnection) -> Result<Json<Vec<User>>,Status>{
     let mut userlist : Vec<User>  = db.run(|conn| {
-        users.load::<User>(conn)
-            .map_err(|_| Status::InternalServerError)
+        users.load::<User>(conn).map_err_to_status()
     }).await?;
 
     for user in &mut userlist {
@@ -64,11 +57,6 @@ pub async fn get_user(db: DatabaseConnection,user_name: String) -> Result<Json<U
             .map(|mut user| {
                 user.password = None;
                 Json(user)
-            })
-            .map_err(|error| {
-                if error == Error::NotFound
-                { Status::NotFound }
-                else { Status::InternalServerError } 
-            })
+            }).map_err_to_status()
     }).await
 }

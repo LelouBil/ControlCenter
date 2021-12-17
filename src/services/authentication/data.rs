@@ -1,17 +1,17 @@
 use chrono::Utc;
 use jsonwebtoken::{DecodingKey, EncodingKey, Header, Validation};
-use okapi::openapi3::{Object, SecurityRequirement, SecurityScheme, SecuritySchemeData};
-use rocket::http::Status;
-use rocket::Request;
-use rocket::request::{FromRequest, Outcome};
-use rocket::response::status::Unauthorized;
-use rocket_okapi::gen::OpenApiGenerator;
-use rocket_okapi::request::{OpenApiFromRequest, RequestHeaderInput};
+
+
+
+
+
+
+
 use serde::{Deserialize,Serialize};
 use schemars::JsonSchema;
-use serde_json::json;
-use diesel::Insertable;
-use crate::database::users;
+
+
+
 use crate::services::users::User;
 
 #[derive(Deserialize,JsonSchema)]

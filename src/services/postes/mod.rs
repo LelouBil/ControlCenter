@@ -1,11 +1,11 @@
 use okapi::openapi3::OpenApi;
-use rocket::{Route, State};
+use rocket::{Route};
 use rocket::serde::json::Json;
 use rocket_okapi::{openapi, openapi_get_routes_spec, };
 mod data;
 
 use data::Poste;
-use crate::database::DatabaseConnection;
+
 use crate::services::authentication::LoggedInUser;
 
 

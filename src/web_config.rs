@@ -1,4 +1,7 @@
+
+use diesel::result::{DatabaseErrorKind, Error};
 use rocket::{Build, Rocket};
+use rocket::http::Status;
 use rocket_cors::AllowedOrigins;
 use rocket_okapi::mount_endpoints_and_merged_docs;
 use rocket_okapi::rapidoc::{GeneralConfig, make_rapidoc, RapiDocConfig};
@@ -45,4 +48,23 @@ fn attach_cors(rocket: Rocket<Build>) -> Rocket<Build>{
         ..Default::default()
     };
     rocket.attach(cors.to_cors().expect("Failed to create CORS policy"))
+}
+pub trait DieselErrorToRocketStatus<T> {
+    fn map_err_to_status(self) -> Result<T,Status>;
+}
+
+impl<T> DieselErrorToRocketStatus<T> for Result<T,diesel::result::Error> {
+     fn map_err_to_status(self) ->  Result<T,Status>{
+        self.map_err(|error| {
+            match error {
+                Error::NotFound => Status::NotFound,
+                Error::DatabaseError(db_err_kind,_) => match db_err_kind{
+                    DatabaseErrorKind::UniqueViolation => Status::Conflict,
+                    DatabaseErrorKind::ForeignKeyViolation => Status::BadRequest,
+                    _ => Status::InternalServerError
+                }
+                _ => Status::InternalServerError
+            }
+        })
+    }
 }

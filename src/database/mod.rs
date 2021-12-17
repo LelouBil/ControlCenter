@@ -1,14 +1,11 @@
 use std::env;
 
 use rocket::figment::{Figment, util::map};
-use rocket::figment::value::{Map, Value};
-use rocket::Request;
-use rocket::request::{FromRequest};
 use rocket_okapi::request::{OpenApiFromRequest};
 use rocket_sync_db_pools::database;
 use rocket_sync_db_pools::diesel;
 mod schema;
-use diesel::Connection;
+
 
 #[derive(OpenApiFromRequest)]
 #[database("database")]

@@ -1,4 +1,3 @@
-#![feature(let_chains)]
 mod services;
 
 #[macro_use]
