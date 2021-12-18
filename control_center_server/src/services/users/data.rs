@@ -1,5 +1,5 @@
 
-use serde::Serialize;
+use serde::{Serialize,Deserialize};
 use okapi::schemars::JsonSchema;
 use diesel::{Queryable,Insertable};
 use okapi::map;
@@ -14,6 +14,11 @@ use crate::database::users;
 #[derive(Queryable,Insertable,Serialize,JsonSchema)]
 pub struct User{
     pub username: String,
+    pub password: Option<String>
+}
+
+#[derive(Deserialize,JsonSchema)]
+pub struct UserPasswordForm{
     pub password: Option<String>
 }
 

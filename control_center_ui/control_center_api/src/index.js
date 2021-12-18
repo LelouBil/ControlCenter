@@ -16,6 +16,7 @@ import ApiClient from './ApiClient';
 import LoginForm from './model/LoginForm';
 import Poste from './model/Poste';
 import User from './model/User';
+import UserPasswordForm from './model/UserPasswordForm';
 import HealthApi from './api/HealthApi';
 import LoginApi from './api/LoginApi';
 import PostesApi from './api/PostesApi';
@@ -77,6 +78,12 @@ export {
      * @property {module:model/User}
      */
     User,
+
+    /**
+     * The UserPasswordForm model constructor.
+     * @property {module:model/UserPasswordForm}
+     */
+    UserPasswordForm,
 
     /**
     * The HealthApi service constructor.

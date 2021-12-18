@@ -4,7 +4,8 @@ use argon2::{Argon2, PasswordHasher};
 use argon2::password_hash::rand_core::OsRng;
 use argon2::password_hash::SaltString;
 use diesel::{delete, ExpressionMethods, insert_into, QueryDsl, RunQueryDsl, update};
-use okapi::openapi3::OpenApi;
+use okapi::openapi3::{OpenApi, PathItem, RefOr};
+use okapi::openapi3::RefOr::Object;
 use rocket::response::status;
 use rocket::response::status::Conflict;
 use rocket::Route;
@@ -81,14 +82,15 @@ pub async fn get_user(db: DatabaseConnection,user_name: String) -> Option<Json<U
     }).await
 }
 
+
 ///Change le mot de passe d'un utilisateur
 #[openapi(tag = "Users")]
-#[post("/<user_name>", data = "<new_password>", format = "plain")]
-pub async fn change_password(db: DatabaseConnection,user_name: String,new_password: Option<String>) -> Result<(),rocket::response::status::NotFound<()>>{
+#[post("/<user_name>", data = "<new_password>", format = "json")]
+pub async fn change_password(db: DatabaseConnection,user_name: String,new_password: Json<UserPasswordForm>) -> Result<(),rocket::response::status::NotFound<()>>{
     let name = user_name.clone();
-    let affected_rows = db.run(|conn| {
+    let affected_rows = db.run(move |conn| {
         update(users.filter(username.eq(user_name)))
-            .set(password.eq(new_password.map(|pass| {
+            .set(password.eq(new_password.into_inner().password.map(|pass| {
                     hash_password(pass).expect("Failed to hash password")
                 })
             ))

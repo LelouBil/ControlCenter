@@ -8,6 +8,7 @@ docs/LoginForm.md
 docs/Poste.md
 docs/PostesApi.md
 docs/User.md
+docs/UserPasswordForm.md
 docs/UsersApi.md
 git_push.sh
 mocha.opts
@@ -21,3 +22,4 @@ src/index.js
 src/model/LoginForm.js
 src/model/Poste.js
 src/model/User.js
+src/model/UserPasswordForm.js
