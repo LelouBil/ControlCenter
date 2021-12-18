@@ -1,7 +1,6 @@
 
 use diesel::result::{DatabaseErrorKind, Error};
 use rocket::{Build, Rocket};
-use rocket::http::Status;
 use rocket::response::Responder;
 use rocket_cors::AllowedOrigins;
 use rocket_okapi::mount_endpoints_and_merged_docs;

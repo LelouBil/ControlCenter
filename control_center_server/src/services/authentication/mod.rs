@@ -36,7 +36,7 @@ pub async fn log_in(db: DatabaseConnection, login_form: Json<LoginForm>) -> Resu
             let parsed_hash = PasswordHash::new(pass)
                 .expect("Error parsing hash");
             argon2.verify_password(login_form.password.as_bytes(),&parsed_hash)
-                .map_err(|e|Unauthorized(None))?;
+                .map_err(|_|Unauthorized(None))?;
             Ok(LoggedInUser::create_jwt(user).expect("Failed to create JWT"))
         }
         None => {
