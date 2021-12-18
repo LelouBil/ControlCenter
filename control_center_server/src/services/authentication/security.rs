@@ -14,7 +14,7 @@ impl<'r> FromRequest<'r> for LoggedInUser {
         let headers = request.headers();
         let authh = headers.get_one("Authorization");
         if authh.is_none(){
-            return Outcome::Failure((Status::BadRequest,()));
+            return Outcome::Failure((Status::Unauthorized,()));
         }
 
         let token = authh.unwrap().replace("Bearer ","");
