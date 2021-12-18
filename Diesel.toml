@@ -1,0 +1,4 @@
+
+[print_schema]
+# language=file-reference
+file = "control_center_server/src/database/schema.rs"
