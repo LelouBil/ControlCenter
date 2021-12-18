@@ -16,17 +16,17 @@ use crate::database::DatabaseConnection;
 use crate::database::users::dsl::users;
 use crate::database::users::{password, username};
 use crate::web_config::{DatabaseErrors, DieselErrorToRocketStatus};
-use crate::services::authentication::LoginForm;
+use crate::services::authentication::{LoggedInUser, LoginForm};
 
 
 pub fn routes() -> (Vec<Route>, OpenApi) {
-    openapi_get_routes_spec![create_user,get_user,list_users,change_password,delete_user]
+    openapi_get_routes_spec![create_user,get_user,list_users,change_password]
 }
 
 /// Créé un utilisateur
 #[openapi(tag = "Users")]
 #[post("/", data = "<login_form>", format = "json")]
-pub async fn create_user(db: DatabaseConnection, login_form: Json<LoginForm>) -> Result<status::Created<Json<User>>,status::Conflict<()>> {
+pub async fn create_user(db: DatabaseConnection,_user : LoggedInUser, login_form: Json<LoginForm>) -> Result<status::Created<Json<User>>,status::Conflict<()>> {
     let mut new_user = User::from(login_form.into_inner());
     
     if let Some(pass) = new_user.password{
@@ -55,7 +55,7 @@ fn hash_password(pass: String) -> Result<String,argon2::password_hash::Error> {
 /// Liste les utilisateurs
 #[openapi(tag = "Users")]
 #[get("/")]
-pub async fn list_users(db: DatabaseConnection) -> Json<Vec<User>>{
+pub async fn list_users(db: DatabaseConnection,_user : LoggedInUser) -> Json<Vec<User>>{
     let mut userlist : Vec<User>  = db.run(|conn| {
         users.load::<User>(conn)
             .expect("Failed to load users from database")
@@ -70,7 +70,7 @@ pub async fn list_users(db: DatabaseConnection) -> Json<Vec<User>>{
 ///Récupere un utilisateur par son nom d'utilisateur
 #[openapi(tag = "Users")]
 #[get("/<user_name>")]
-pub async fn get_user(db: DatabaseConnection,user_name: String) -> Option<Json<User>>{
+pub async fn get_user(db: DatabaseConnection,_user : LoggedInUser,user_name: String) -> Option<Json<User>>{
     db.run(|conn| {
         users.find(user_name)
             .first::<User>(conn)
@@ -85,11 +85,11 @@ pub async fn get_user(db: DatabaseConnection,user_name: String) -> Option<Json<U
 
 ///Change le mot de passe d'un utilisateur
 #[openapi(tag = "Users")]
-#[post("/<user_name>", data = "<new_password>", format = "json")]
-pub async fn change_password(db: DatabaseConnection,user_name: String,new_password: Json<UserPasswordForm>) -> Result<(),rocket::response::status::NotFound<()>>{
-    let name = user_name.clone();
+#[post("/@me", data = "<new_password>", format = "json")]
+pub async fn change_password(db: DatabaseConnection,_user : LoggedInUser,new_password: Json<UserPasswordForm>) -> Result<(),rocket::response::status::NotFound<()>>{
+    let name = _user.username.clone();
     let affected_rows = db.run(move |conn| {
-        update(users.filter(username.eq(user_name)))
+        update(users.filter(username.eq(_user.username)))
             .set(password.eq(new_password.into_inner().password.map(|pass| {
                     hash_password(pass).expect("Failed to hash password")
                 })
@@ -102,23 +102,5 @@ pub async fn change_password(db: DatabaseConnection,user_name: String,new_passwo
         1 => Ok(()),
         0 => Err(rocket::response::status::NotFound(())),
         _ => panic!("Changing password of {} affected multiple users !",name)
-    }
-}
-
-///Supprime un utilisateur
-#[openapi(tag = "Users")]
-#[delete("/<user_name>")]
-pub async fn delete_user(db: DatabaseConnection,user_name: String) -> Result<rocket::response::status::NoContent,rocket::response::status::NotFound<()>>{
-    let name = user_name.clone();
-    let affected_rows = db.run(|conn| {
-        delete(users.filter(username.eq(user_name)))
-            .execute(conn)
-            .expect("Failed to delete user")
-    }).await;
-
-    match affected_rows {
-        1 => Ok(rocket::response::status::NoContent),
-        0 => Err(rocket::response::status::NotFound(())),
-        _ => panic!("Deleting user {} affected multiple users !",name)
     }
 }
