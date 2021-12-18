@@ -9,9 +9,9 @@
         </div>
 
         <div class="form-floating">
-          <label for="passConfirm">Confirm new password</label>
           <input id="passConfirm" type="password" v-model="passConfirm" autocomplete="false" class="form-control"
                  placeholder=" "/>
+          <label for="passConfirm">Confirm new password</label>
         </div>
         <button type="submit" class="btn btn-primary change">Change</button>
       </form>
