@@ -4,5 +4,5 @@
  * @type {import('@vue/cli-service').ProjectOptions}
  */
 module.exports = {
-    publicPath: "/ControlCenter/web/dist/"
+    publicPath: "/ControlCenter/control_center_ui/dist/"
 }
