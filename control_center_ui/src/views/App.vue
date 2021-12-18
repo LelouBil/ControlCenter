@@ -10,7 +10,7 @@
         <router-link class="navbar-brand" :to="{name: 'Surveillance'}">Surveillance</router-link>
       </div>
       <div class="float-end m-auto">
-        <label>Bonjour, <strong class="name">{{ user }}</strong></label><br/>
+        <label>Bonjour, <router-link class="name" :to="{name: 'Users'}">{{ user }}</router-link></label><br/>
         <button class="btn btn-secondary" type="button" v-on:click="logout">Déconnexion</button>
         <br>
         <button v-if="spreading" class="btn btn-success" v-on:click="spread">Propagation</button>
@@ -70,6 +70,8 @@ header {
 }
 
 .name {
+  font-weight: bold;
+  text-decoration: none;
   color: var(--bs-green);
 }
 

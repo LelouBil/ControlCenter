@@ -6,6 +6,7 @@ import Script from "../views/app_views/Script.vue";
 import Surveillance from "../views/app_views/Surveillance.vue";
 import store from "../store";
 import PosteCtrl from "../views/PosteCtrl";
+import Users from "@/views/app_views/Users";
 
 const routes = [
     {
@@ -46,6 +47,11 @@ const routes = [
                 path: ":ip",
                 name: "PosteCtrl",
                 component: PosteCtrl
+            },
+            {
+                path: "users",
+                name: "Users",
+                component: Users
             }
         ],
     }

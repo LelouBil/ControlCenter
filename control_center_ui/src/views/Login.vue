@@ -13,7 +13,8 @@
                required/>
         <label for="password">Password</label>
       </div>
-      <button class="btn btn-primary btn-lg" type="submit">Connexion</button>
+      <button type="submit" class="btn btn-primary btn-lg">Connexion</button>
+      <h4 id="pasCo" style="color: red; margin-top: 1rem" hidden>Identifiants incorrects</h4>
     </form>
   </div>
 </template>
