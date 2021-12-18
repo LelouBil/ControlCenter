@@ -46,18 +46,16 @@ async fn list_postes(db: DatabaseConnection, _user: LoggedInUser, filtre: Postes
     if let Some(value) = filtre.ip_range_start {
         postlist.drain_filter(|poste| {
             poste.ip.split(".").nth(3)
-                .map(|lastpart| {
+                .and_then(|lastpart| {
                     lastpart.parse::<u64>().ok()
                 })
-                .flatten()
                 .map_or(false, |num| value > num)
         });
     }
     if let Some(value) = filtre.ip_range_end {
         postlist.drain_filter(|poste| {
             poste.ip.split(".").nth(3)
-                .map(|lastpart| lastpart.parse::<u64>().ok())
-                .flatten()
+                .and_then(|lastpart| lastpart.parse::<u64>().ok())
                 .map_or(false, |num| value < num)
         });
     }
