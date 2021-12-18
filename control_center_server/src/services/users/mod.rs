@@ -1,5 +1,9 @@
 mod data;
 
+use argon2::Algorithm::Argon2d;
+use argon2::{Argon2, PasswordHasher};
+use argon2::password_hash::rand_core::OsRng;
+use argon2::password_hash::SaltString;
 use diesel::{insert_into, QueryDsl, RunQueryDsl};
 use okapi::openapi3::OpenApi;
 use rocket::http::Status;
@@ -22,7 +26,20 @@ pub fn routes() -> (Vec<Route>, OpenApi) {
 #[openapi(tag = "Users")]
 #[post("/", data = "<login_form>", format = "json")]
 pub async fn create_user(db: DatabaseConnection, login_form: Json<LoginForm>) -> Result<status::Created<Json<User>>,Status> {
-    let new_user = User::from(login_form.into_inner());
+    let mut new_user = User::from(login_form.into_inner());
+    
+    if let Some(pass) = new_user.password{
+        let salt = SaltString::generate(&mut OsRng);
+        let  argon2 = Argon2::default();
+        let hashed_pass = argon2.hash_password(pass.as_bytes(),&salt)
+            .map_err(|e| {
+                eprintln!("Error hasing password : {}",e);
+                Status::InternalServerError
+            })?
+            .to_string();
+        new_user.password = Some(hashed_pass);
+    }
+    
     db.run(move |conn| {
         insert_into(users).values(&new_user).execute(conn)
             .map(move |_| {
